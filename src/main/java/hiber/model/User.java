@@ -1,18 +1,16 @@
 package hiber.model;
 
+import org.hibernate.annotations.Cascade;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-  @OneToOne(cascade = CascadeType.ALL)
-  @JoinColumn(name = "car_series")
-  private Car car;
-
   @Id
-  @Column(name = "ID")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "id_user")
   private Long id;
 
   @Column(name = "name")
@@ -23,6 +21,10 @@ public class User {
 
   @Column(name = "email")
   private String email;
+
+  @OneToOne
+  @Cascade(org.hibernate.annotations.CascadeType.ALL)
+  private Car car;
 
   public User() {
   }
@@ -76,8 +78,12 @@ public class User {
 
   @Override
   public String toString() {
-    return "\nUser firstName " + firstName +
-        "\nUser lastName " + lastName +
-        "\nUser email " + email;
+    return "User{" +
+        "id=" + id +
+        ", firstName='" + firstName + '\'' +
+        ", lastName='" + lastName + '\'' +
+        ", email='" + email + '\'' +
+        ", car=" + car +
+        '}';
   }
 }
